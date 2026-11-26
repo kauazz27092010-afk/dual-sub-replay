@@ -187,6 +187,16 @@ class SubtitleWordHighlightTest {
         assertEquals(1.25f, normalizeLineFontScale(1.24f))
     }
 
+    @Test fun subtitleBoxSizeClampsAndRounds() {
+        assertEquals(DEFAULT_SUBTITLE_BOX_WIDTH, normalizeSubtitleBoxWidth(Float.NaN))
+        assertEquals(MIN_SUBTITLE_BOX_WIDTH, normalizeSubtitleBoxWidth(0.1f))
+        assertEquals(MAX_SUBTITLE_BOX_WIDTH, normalizeSubtitleBoxWidth(1.5f))
+        assertEquals(0.75f, normalizeSubtitleBoxWidth(0.74f))
+        assertEquals(MIN_SUBTITLE_BOX_HEIGHT_DP, normalizeSubtitleBoxHeightDp(-20))
+        assertEquals(MAX_SUBTITLE_BOX_HEIGHT_DP, normalizeSubtitleBoxHeightDp(500))
+        assertEquals(120, normalizeSubtitleBoxHeightDp(118))
+    }
+
     @Test fun resettableSettingKeysCoverEveryUserFacingPreference() {
         val expected =
             setOf(
@@ -219,6 +229,8 @@ class SubtitleWordHighlightTest {
                 SUBTITLE_HIGHLIGHT_COLOR_PREFERENCE,
                 SUBTITLE_BOX_BACKGROUND_PREFERENCE,
                 SUBTITLE_BOX_OPACITY_PREFERENCE,
+                SUBTITLE_BOX_WIDTH_PREFERENCE,
+                SUBTITLE_BOX_HEIGHT_PREFERENCE,
                 APP_THEME_ACCENT_PREFERENCE,
                 APP_COLOR_THEME_PREFERENCE,
                 WORD_HIGHLIGHT_ENABLED_PREFERENCE,

@@ -430,6 +430,18 @@ internal enum class SearchableSetting(
         "box_opacity",
         setOf(SUBTITLE_BOX_OPACITY_PREFERENCE),
     ),
+    BOX_WIDTH(
+        R.string.settings_box_width_title,
+        MoreSettingsSection.COLORS,
+        "box_width",
+        setOf(SUBTITLE_BOX_WIDTH_PREFERENCE),
+    ),
+    BOX_HEIGHT(
+        R.string.settings_box_height_title,
+        MoreSettingsSection.COLORS,
+        "box_height",
+        setOf(SUBTITLE_BOX_HEIGHT_PREFERENCE),
+    ),
     APP_COLORS(R.string.settings_app_colors_title, MoreSettingsSection.COLORS, "app_colors", setOf(APP_COLOR_THEME_PREFERENCE)),
     ACCENT_COLOR(R.string.settings_accent_color_title, MoreSettingsSection.COLORS, "theme_accent", setOf(APP_THEME_ACCENT_PREFERENCE)),
     DIFFERENT_TAB_ACCOUNTS(

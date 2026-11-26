@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -320,6 +321,26 @@ fun LearningPlayerRoot(viewModel: AppViewModel) {
             ),
         )
     }
+    var subtitleBoxWidth by remember {
+        mutableStateOf(
+            normalizeSubtitleBoxWidth(
+                preferences.getFloat(
+                    SUBTITLE_BOX_WIDTH_PREFERENCE,
+                    DEFAULT_SUBTITLE_BOX_WIDTH,
+                ),
+            ),
+        )
+    }
+    var subtitleBoxHeightDp by remember {
+        mutableStateOf(
+            normalizeSubtitleBoxHeightDp(
+                preferences.getInt(
+                    SUBTITLE_BOX_HEIGHT_PREFERENCE,
+                    DEFAULT_SUBTITLE_BOX_HEIGHT_DP,
+                ),
+            ),
+        )
+    }
     var overlayVerticalPosition by remember {
         mutableStateOf(
             if (rememberOverlayPosition) {
@@ -403,6 +424,18 @@ fun LearningPlayerRoot(viewModel: AppViewModel) {
                         subtitleBoxOpacity =
                             normalizeSubtitleBoxOpacity(
                                 sharedPreferences.getFloat(key, DEFAULT_SUBTITLE_BOX_OPACITY),
+                            )
+                    }
+                    SUBTITLE_BOX_WIDTH_PREFERENCE -> {
+                        subtitleBoxWidth =
+                            normalizeSubtitleBoxWidth(
+                                sharedPreferences.getFloat(key, DEFAULT_SUBTITLE_BOX_WIDTH),
+                            )
+                    }
+                    SUBTITLE_BOX_HEIGHT_PREFERENCE -> {
+                        subtitleBoxHeightDp =
+                            normalizeSubtitleBoxHeightDp(
+                                sharedPreferences.getInt(key, DEFAULT_SUBTITLE_BOX_HEIGHT_DP),
                             )
                     }
                 }
@@ -583,6 +616,8 @@ fun LearningPlayerRoot(viewModel: AppViewModel) {
                     translatedColor = effectiveTranslatedColor(state),
                     highlightColor = effectiveHighlightColor(state),
                     backgroundColor = subtitleBoxBackgroundColor,
+                    boxWidthFraction = subtitleBoxWidth,
+                    boxMinHeightDp = subtitleBoxHeightDp,
                     wordLearningEnabled = state.wordLearningEnabled,
                     wordLearningTarget = state.wordLearningTarget,
                     tapToLearnEnabled = state.tapToLearnEnabled,
@@ -690,6 +725,8 @@ fun LearningPlayerRoot(viewModel: AppViewModel) {
                         translatedColor = effectiveTranslatedColor(state),
                         highlightColor = effectiveHighlightColor(state),
                         backgroundColor = subtitleBoxBackgroundColor,
+                        boxWidthFraction = subtitleBoxWidth,
+                        boxMinHeightDp = subtitleBoxHeightDp,
                         wordLearningEnabled = state.wordLearningEnabled,
                         wordLearningTarget = state.wordLearningTarget,
                         tapToLearnEnabled = state.tapToLearnEnabled,
@@ -754,6 +791,8 @@ internal fun LearningSubtitleOverlay(
     translatedColor: Color = Color(0xFF75E7C1),
     highlightColor: Color = Color(0xFF75E7C1),
     backgroundColor: Color = subtitleBoxBackgroundColor(DEFAULT_SUBTITLE_BOX_BACKGROUND_KEY),
+    boxWidthFraction: Float = DEFAULT_SUBTITLE_BOX_WIDTH,
+    boxMinHeightDp: Int = DEFAULT_SUBTITLE_BOX_HEIGHT_DP,
     wordLearningEnabled: Boolean = false,
     wordLearningTarget: String = "original",
     tapToLearnEnabled: Boolean = true,
@@ -820,11 +859,25 @@ internal fun LearningSubtitleOverlay(
         overlayActionsVisible = false
     }
 
+    val normalizedWidth = normalizeSubtitleBoxWidth(boxWidthFraction)
+    val normalizedMinHeightDp = normalizeSubtitleBoxHeightDp(boxMinHeightDp)
+    val useExplicitWidth = !isFullscreen || normalizedWidth != DEFAULT_SUBTITLE_BOX_WIDTH
     Surface(
         modifier =
             modifier
-                .then(if (isFullscreen) Modifier else Modifier.fillMaxWidth(0.90f).widthIn(max = OVERLAY_MAX_WIDTH_DP.dp))
-                .testTag("learning_subtitle_overlay")
+                .then(
+                    if (useExplicitWidth) {
+                        Modifier.fillMaxWidth(normalizedWidth)
+                    } else {
+                        Modifier
+                    },
+                ).then(
+                    if (normalizedMinHeightDp > 0) {
+                        Modifier.heightIn(min = normalizedMinHeightDp.dp)
+                    } else {
+                        Modifier
+                    },
+                ).testTag("learning_subtitle_overlay")
                 .onGloballyPositioned { coordinates ->
                     selfWidthPx = coordinates.size.width
                     parentWidthPx = (coordinates.parentLayoutCoordinates?.size?.width ?: 0)
@@ -860,7 +913,7 @@ internal fun LearningSubtitleOverlay(
         Row(
             modifier =
                 Modifier
-                    .then(if (isFullscreen) Modifier else Modifier.fillMaxWidth())
+                    .then(if (useExplicitWidth) Modifier.fillMaxWidth() else Modifier)
                     .padding(
                         start = 14.dp,
                         end = if (overlayActionsVisible) 2.dp else 14.dp,
@@ -871,7 +924,7 @@ internal fun LearningSubtitleOverlay(
         ) {
             Column(
                 modifier =
-                    if (isFullscreen) {
+                    if (!useExplicitWidth) {
                         Modifier.widthIn(
                             max = fullscreenOverlayTextMaxWidthDp(configuration.screenWidthDp, overlayActionsVisible).dp,
                         )

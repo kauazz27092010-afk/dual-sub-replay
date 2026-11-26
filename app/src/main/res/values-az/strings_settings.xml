@@ -47,6 +47,11 @@
     <string name="settings_box_opacity_title">Altyazı qutusunun şəffaflığı</string>
     <string name="settings_box_opacity_value">Altyazı qutusunun şəffaflığı: %1$d%%</string>
     <string name="settings_box_opacity_hint">Videonun üzərində göstərilən altyazı qutusunun fon şəffaflığını tənzimləyin.</string>
+    <string name="settings_box_width_title">Altyazı qutusunun eni</string>
+    <string name="settings_box_width_value">Altyazı qutusunun eni: %1$d%%</string>
+    <string name="settings_box_height_title">Altyazı qutusunun minimum hündürlüyü</string>
+    <string name="settings_box_height_value">Altyazı qutusunun minimum hündürlüyü: %1$d dp</string>
+    <string name="settings_box_height_auto">Altyazı qutusunun minimum hündürlüyü: Avtomatik</string>
     <string name="settings_app_theme_title">Tətbiq mövzusu</string>
     <string name="settings_accent_color_title">Vurğu rəngi</string>
     <string name="settings_accent_color_hint">Açarları, sürüşdürücüləri, düymələri, aktiv çərçivələri və tətbiqin digər vurğularını dəyişir.</string>

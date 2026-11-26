@@ -1122,7 +1122,11 @@ internal fun SubtitleSettingsDialog(
                     )
                 }
                 SettingsSectionDivider()
-                AdvancedAppearanceSettings(boxOpacityPeekSlider = peek.boxOpacitySlider)
+                AdvancedAppearanceSettings(
+                    boxOpacityPeekSlider = peek.boxOpacitySlider,
+                    boxWidthPeekSlider = peek.boxWidthSlider,
+                    boxHeightPeekSlider = peek.boxHeightSlider,
+                )
             },
         )
 

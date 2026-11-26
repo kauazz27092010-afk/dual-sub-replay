@@ -106,6 +106,8 @@ internal val SETTING_SPECS: Map<String, SettingSpec> =
         "subtitle_highlight_color" to share(S),
         "subtitle_box_background" to share(S),
         "subtitle_box_opacity" to share(F),
+        "subtitle_box_width" to share(F),
+        "subtitle_box_height_dp" to share(I),
         "app_color_theme" to share(S),
         "app_theme_accent" to share(S),
         // Word learning and the word card.

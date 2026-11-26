@@ -47,6 +47,11 @@
     <string name="settings_box_opacity_title">Opasitas kotak subtitel ganda</string>
     <string name="settings_box_opacity_value">Opasitas kotak subtitel ganda: %1$d%%</string>
     <string name="settings_box_opacity_hint">Atur tingkat transparansi latar belakang kotak subtitel di atas video.</string>
+    <string name="settings_box_width_title">Lebar kotak subtitel ganda</string>
+    <string name="settings_box_width_value">Lebar kotak subtitel ganda: %1$d%%</string>
+    <string name="settings_box_height_title">Tinggi minimum kotak subtitel ganda</string>
+    <string name="settings_box_height_value">Tinggi minimum kotak: %1$d dp</string>
+    <string name="settings_box_height_auto">Tinggi minimum kotak: Otomatis</string>
     <string name="settings_app_theme_title">Tema aplikasi</string>
     <string name="settings_accent_color_title">Warna aksen</string>
     <string name="settings_accent_color_hint">Mengubah sakelar, penggeser, tombol, bingkai aktif, dan aksen aplikasi lainnya.</string>

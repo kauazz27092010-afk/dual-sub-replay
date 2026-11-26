@@ -47,6 +47,11 @@
     <string name="settings_box_opacity_title">Độ mờ nền khung phụ đề kép</string>
     <string name="settings_box_opacity_value">Độ mờ nền khung phụ đề kép: %1$d%%</string>
     <string name="settings_box_opacity_hint">Điều chỉnh độ trong suốt của nền khung phụ đề hiển thị trên video.</string>
+    <string name="settings_box_width_title">Chiều rộng khung phụ đề kép</string>
+    <string name="settings_box_width_value">Chiều rộng khung phụ đề kép: %1$d%%</string>
+    <string name="settings_box_height_title">Chiều cao tối thiểu khung phụ đề kép</string>
+    <string name="settings_box_height_value">Chiều cao tối thiểu khung phụ đề: %1$d dp</string>
+    <string name="settings_box_height_auto">Chiều cao tối thiểu khung phụ đề: Tự động</string>
     <string name="settings_app_theme_title">Giao diện ứng dụng</string>
     <string name="settings_accent_color_title">Màu nhấn</string>
     <string name="settings_accent_color_hint">Đổi màu công tắc, thanh trượt, nút, viền đang chọn và các điểm nhấn khác của ứng dụng.</string>

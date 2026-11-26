@@ -47,6 +47,11 @@
     <string name="settings_box_opacity_title">Opacidade da caixa de legendas</string>
     <string name="settings_box_opacity_value">Opacidade da caixa de legendas: %1$d%%</string>
     <string name="settings_box_opacity_hint">Ajuste a transparência do fundo da caixa de legendas exibida sobre o vídeo.</string>
+    <string name="settings_box_width_title">Largura da caixa de legendas</string>
+    <string name="settings_box_width_value">Largura da caixa de legendas: %1$d%%</string>
+    <string name="settings_box_height_title">Altura mínima da caixa de legendas</string>
+    <string name="settings_box_height_value">Altura mínima da caixa: %1$d dp</string>
+    <string name="settings_box_height_auto">Altura mínima da caixa: Automática</string>
     <string name="settings_app_theme_title">Tema do app</string>
     <string name="settings_accent_color_title">Cor de destaque</string>
     <string name="settings_accent_color_hint">Muda as chaves, controles deslizantes, botões, bordas ativas e outros destaques do app.</string>

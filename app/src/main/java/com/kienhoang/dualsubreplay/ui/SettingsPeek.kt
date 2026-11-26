@@ -74,6 +74,8 @@ internal class SettingsPeekState {
     val translatedFontScaleSlider = PeekSlider(this)
     val panelPositionSlider = PeekSlider(this)
     val boxOpacitySlider = PeekSlider(this)
+    val boxWidthSlider = PeekSlider(this)
+    val boxHeightSlider = PeekSlider(this)
 
     /** The slider being held, shown alone on [HeldSliderCard] while the page is hidden. */
     var heldSlider by mutableStateOf<HeldSlider?>(null)

@@ -47,6 +47,11 @@
     <string name="settings_box_opacity_title">Dual-sub box opacity</string>
     <string name="settings_box_opacity_value">Dual-sub box opacity: %1$d%%</string>
     <string name="settings_box_opacity_hint">Adjust how transparent or solid the subtitle box background is over the video.</string>
+    <string name="settings_box_width_title">Dual-sub box width</string>
+    <string name="settings_box_width_value">Dual-sub box width: %1$d%%</string>
+    <string name="settings_box_height_title">Dual-sub box minimum height</string>
+    <string name="settings_box_height_value">Dual-sub box min height: %1$d dp</string>
+    <string name="settings_box_height_auto">Dual-sub box min height: Auto</string>
     <string name="settings_app_theme_title">App theme</string>
     <string name="settings_accent_color_title">Accent color</string>
     <string name="settings_accent_color_hint">Changes switches, sliders, buttons, active borders, and other app accents.</string>

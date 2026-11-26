@@ -47,6 +47,11 @@
     <string name="settings_box_opacity_title">이중 자막 상자 불투명도</string>
     <string name="settings_box_opacity_value">이중 자막 상자 불투명도: %1$d%%</string>
     <string name="settings_box_opacity_hint">영상 위에 표시되는 자막 상자 배경의 투명도를 조절해요.</string>
+    <string name="settings_box_width_title">이중 자막 상자 너비</string>
+    <string name="settings_box_width_value">이중 자막 상자 너비: %1$d%%</string>
+    <string name="settings_box_height_title">이중 자막 상자 최소 높이</string>
+    <string name="settings_box_height_value">이중 자막 상자 최소 높이: %1$d dp</string>
+    <string name="settings_box_height_auto">이중 자막 상자 최소 높이: 자동</string>
     <string name="settings_app_theme_title">앱 테마</string>
     <string name="settings_accent_color_title">강조 색상</string>
     <string name="settings_accent_color_hint">스위치, 슬라이더, 버튼, 활성 테두리 등 앱의 강조 색상을 바꿔요.</string>

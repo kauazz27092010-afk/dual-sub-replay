@@ -47,6 +47,11 @@
     <string name="settings_box_opacity_title">2言語字幕ボックスの不透明度</string>
     <string name="settings_box_opacity_value">2言語字幕ボックスの不透明度：%1$d%%</string>
     <string name="settings_box_opacity_hint">動画の上に表示される字幕ボックス背景の透明度を調整します。</string>
+    <string name="settings_box_width_title">2言語字幕ボックスの幅</string>
+    <string name="settings_box_width_value">2言語字幕ボックスの幅：%1$d%%</string>
+    <string name="settings_box_height_title">2言語字幕ボックスの高さ</string>
+    <string name="settings_box_height_value">2言語字幕ボックスの最小高さ：%1$d dp</string>
+    <string name="settings_box_height_auto">2言語字幕ボックスの最小高さ：自動</string>
     <string name="settings_app_theme_title">アプリのテーマ</string>
     <string name="settings_accent_color_title">アクセントカラー</string>
     <string name="settings_accent_color_hint">スイッチ、スライダー、ボタン、選択中の枠線など、アプリのアクセントを変更します。</string>

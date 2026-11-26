@@ -12,6 +12,8 @@ const val SUBTITLE_TRANSLATED_COLOR_PREFERENCE = "subtitle_translated_color"
 const val SUBTITLE_HIGHLIGHT_COLOR_PREFERENCE = "subtitle_highlight_color"
 const val SUBTITLE_BOX_BACKGROUND_PREFERENCE = "subtitle_box_background"
 const val SUBTITLE_BOX_OPACITY_PREFERENCE = "subtitle_box_opacity"
+const val SUBTITLE_BOX_WIDTH_PREFERENCE = "subtitle_box_width"
+const val SUBTITLE_BOX_HEIGHT_PREFERENCE = "subtitle_box_height_dp"
 const val APP_THEME_ACCENT_PREFERENCE = "app_theme_accent"
 const val WORD_HIGHLIGHT_ENABLED_PREFERENCE = "highlight_spoken_words_enabled"
 const val CUSTOM_SUBTITLE_COLORS_ENABLED_PREFERENCE = "custom_subtitle_colors_enabled"
@@ -86,6 +88,14 @@ internal const val MIN_SUBTITLE_BOX_OPACITY = 0f
 internal const val MAX_SUBTITLE_BOX_OPACITY = 1f
 internal const val DEFAULT_SUBTITLE_BOX_OPACITY = 0.85f
 internal const val SUBTITLE_BOX_OPACITY_STEPS = 19
+internal const val MIN_SUBTITLE_BOX_WIDTH = 0.4f
+internal const val MAX_SUBTITLE_BOX_WIDTH = 1f
+internal const val DEFAULT_SUBTITLE_BOX_WIDTH = 0.9f
+internal const val SUBTITLE_BOX_WIDTH_STEPS = 11
+internal const val MIN_SUBTITLE_BOX_HEIGHT_DP = 0
+internal const val MAX_SUBTITLE_BOX_HEIGHT_DP = 240
+internal const val DEFAULT_SUBTITLE_BOX_HEIGHT_DP = 0
+internal const val SUBTITLE_BOX_HEIGHT_STEPS = 23
 internal val DEFAULT_APP_THEME_ACCENT_KEY = AppThemeAccentOption.CYAN.key
 
 internal fun storedSubtitleColorKey(
@@ -124,6 +134,17 @@ internal fun normalizeSubtitleBoxOpacity(raw: Float): Float {
     if (!raw.isFinite()) return DEFAULT_SUBTITLE_BOX_OPACITY
     val clamped = raw.coerceIn(MIN_SUBTITLE_BOX_OPACITY, MAX_SUBTITLE_BOX_OPACITY)
     return (clamped * 20f).roundToInt() / 20f
+}
+
+internal fun normalizeSubtitleBoxWidth(raw: Float): Float {
+    if (!raw.isFinite()) return DEFAULT_SUBTITLE_BOX_WIDTH
+    val clamped = raw.coerceIn(MIN_SUBTITLE_BOX_WIDTH, MAX_SUBTITLE_BOX_WIDTH)
+    return (clamped * 20f).roundToInt() / 20f
+}
+
+internal fun normalizeSubtitleBoxHeightDp(raw: Int): Int {
+    val clamped = raw.coerceIn(MIN_SUBTITLE_BOX_HEIGHT_DP, MAX_SUBTITLE_BOX_HEIGHT_DP)
+    return ((clamped + 5) / 10) * 10
 }
 
 internal fun subtitleBoxBackgroundColor(
@@ -214,6 +235,8 @@ val RESETTABLE_SETTING_KEYS =
         SUBTITLE_HIGHLIGHT_COLOR_PREFERENCE,
         SUBTITLE_BOX_BACKGROUND_PREFERENCE,
         SUBTITLE_BOX_OPACITY_PREFERENCE,
+        SUBTITLE_BOX_WIDTH_PREFERENCE,
+        SUBTITLE_BOX_HEIGHT_PREFERENCE,
         APP_THEME_ACCENT_PREFERENCE,
         APP_COLOR_THEME_PREFERENCE,
         WORD_HIGHLIGHT_ENABLED_PREFERENCE,

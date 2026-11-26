@@ -47,6 +47,11 @@
     <string name="settings_box_opacity_title">Opacidad del cuadro de subtítulos</string>
     <string name="settings_box_opacity_value">Opacidad del cuadro de subtítulos: %1$d%%</string>
     <string name="settings_box_opacity_hint">Ajusta qué tan transparente u opaco es el fondo del cuadro de subtítulos sobre el video.</string>
+    <string name="settings_box_width_title">Ancho del cuadro de subtítulos</string>
+    <string name="settings_box_width_value">Ancho del cuadro de subtítulos: %1$d%%</string>
+    <string name="settings_box_height_title">Altura mínima del cuadro de subtítulos</string>
+    <string name="settings_box_height_value">Altura mínima del cuadro: %1$d dp</string>
+    <string name="settings_box_height_auto">Altura mínima del cuadro: Automática</string>
     <string name="settings_app_theme_title">Tema de la app</string>
     <string name="settings_accent_color_title">Color de acento</string>
     <string name="settings_accent_color_hint">Cambia los interruptores, controles deslizantes, botones, bordes activos y otros acentos de la app.</string>
