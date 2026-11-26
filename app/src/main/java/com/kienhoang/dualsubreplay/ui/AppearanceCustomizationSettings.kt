@@ -86,9 +86,10 @@ internal fun AdvancedAppearanceSettings(boxOpacityPeekSlider: PeekSlider? = null
                     )
                 }
                 SUBTITLE_BOX_OPACITY_PREFERENCE -> {
-                    boxOpacity = normalizeSubtitleBoxOpacity(
-                        sharedPreferences.getFloat(key, DEFAULT_SUBTITLE_BOX_OPACITY),
-                    )
+                    boxOpacity =
+                        normalizeSubtitleBoxOpacity(
+                            sharedPreferences.getFloat(key, DEFAULT_SUBTITLE_BOX_OPACITY),
+                        )
                 }
                 APP_COLOR_THEME_PREFERENCE -> themeKey = storedAppColorTheme(sharedPreferences.getString(key, null)).key
                 APP_THEME_ACCENT_PREFERENCE -> {

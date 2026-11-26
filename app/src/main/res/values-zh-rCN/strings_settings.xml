@@ -46,7 +46,7 @@
     <string name="settings_box_background_hint">选择显示在视频上方的紧凑双语字幕框的背景颜色。</string>
     <string name="settings_box_opacity_title">双语字幕框不透明度</string>
     <string name="settings_box_opacity_value">双语字幕框不透明度：%1$d%%</string>
-    <string name="settings_box_opacity_hint">调节显示在视频上方的字幕框背景透明度（0% 为完全透明，100% 为完全不透明）。</string>
+    <string name="settings_box_opacity_hint" formatted="false">调节显示在视频上方的字幕框背景透明度（0% 为完全透明，100% 为完全不透明）。</string>
     <string name="settings_app_theme_title">应用主题</string>
     <string name="settings_accent_color_title">强调色</string>
     <string name="settings_accent_color_hint">更改开关、滑块、按钮、选中边框及其他应用强调元素的颜色。</string>
