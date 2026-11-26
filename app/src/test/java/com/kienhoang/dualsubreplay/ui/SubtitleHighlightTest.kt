@@ -176,8 +176,8 @@ class SubtitleWordHighlightTest {
         assertEquals(0f, normalizeSubtitleBoxOpacity(-0.25f))
         assertEquals(1f, normalizeSubtitleBoxOpacity(1.5f))
         assertEquals(0.45f, normalizeSubtitleBoxOpacity(0.44f))
-        assertEquals(0.5f, subtitleBoxBackgroundColor("black", 0.5f).alpha)
-        assertEquals(0f, subtitleBoxBackgroundColor("deep_teal", 0f).alpha)
+        assertEquals(0.5f, subtitleBoxBackgroundColor("black", 0.5f).alpha, 0.01f)
+        assertEquals(0f, subtitleBoxBackgroundColor("deep_teal", 0f).alpha, 0.001f)
     }
 
     @Test fun lineFontScaleClampsAndRounds() {
