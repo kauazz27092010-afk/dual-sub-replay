@@ -45,6 +45,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
@@ -56,6 +57,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.webkit.WebViewCompat
 import androidx.webkit.WebViewFeature
 import com.kienhoang.dualsubreplay.BuildConfig
@@ -427,6 +429,7 @@ internal fun SingleYouTubePage(
     var rendererRecoveryUsed by remember { mutableStateOf(false) }
     var webViewUnavailable by remember { mutableStateOf(false) }
     var pageError by remember { mutableStateOf<String?>(null) }
+    var isPullRefreshing by remember { mutableStateOf(false) }
     var fullscreenSession by remember { mutableStateOf<WebFullscreenSession?>(null) }
     var googleSignInInProgress by remember { mutableStateOf(false) }
     var signInStartedWithCookies by remember { mutableStateOf(false) }
@@ -596,6 +599,7 @@ internal fun SingleYouTubePage(
 
                 override fun onPageFinished(view: WebView, url: String?) {
                     super.onPageFinished(view, url)
+                    isPullRefreshing = false
                     if (url != null && handleMainFrameUrl(view, url)) return
                     rendererRecoveryUsed = false
                     webViewUnavailable = false
@@ -929,9 +933,58 @@ internal fun SingleYouTubePage(
         if (canGoBack) webView.goBack() else (context as? Activity)?.leaveKeepingState()
     }
 
+    LaunchedEffect(isPullRefreshing) {
+        if (!isPullRefreshing) return@LaunchedEffect
+        delay(4_000L)
+        isPullRefreshing = false
+    }
+
+    val pullRefreshAccentColor = MaterialTheme.colorScheme.primary.toArgb()
+    val pullRefreshSurfaceColor = MaterialTheme.colorScheme.surfaceContainerHigh.toArgb()
+
     Box(modifier) {
         AndroidView(
-            factory = { webView },
+            factory = { viewContext ->
+                SwipeRefreshLayout(viewContext).apply {
+                    setColorSchemeColors(pullRefreshAccentColor)
+                    setProgressBackgroundColorSchemeColor(pullRefreshSurfaceColor)
+                    (webView.parent as? ViewGroup)?.removeView(webView)
+                    addView(
+                        webView,
+                        ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                        ),
+                    )
+                }
+            },
+            update = { swipeRefresh ->
+                swipeRefresh.setColorSchemeColors(pullRefreshAccentColor)
+                swipeRefresh.setProgressBackgroundColorSchemeColor(pullRefreshSurfaceColor)
+                swipeRefresh.isEnabled = fullscreenSession == null && !webViewUnavailable
+                if (swipeRefresh.isRefreshing != isPullRefreshing) {
+                    swipeRefresh.isRefreshing = isPullRefreshing
+                }
+                if (webView.parent !== swipeRefresh) {
+                    (webView.parent as? ViewGroup)?.removeView(webView)
+                    swipeRefresh.removeAllViews()
+                    swipeRefresh.addView(
+                        webView,
+                        ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                        ),
+                    )
+                }
+                swipeRefresh.setOnChildScrollUpCallback { _, _ ->
+                    webView.canScrollVertically(-1) || webView.scrollY > 0
+                }
+                swipeRefresh.setOnRefreshListener {
+                    isPullRefreshing = true
+                    pageError = null
+                    webView.reload()
+                }
+            },
             modifier = Modifier.fillMaxSize(),
         )
         pageError?.let { message ->
