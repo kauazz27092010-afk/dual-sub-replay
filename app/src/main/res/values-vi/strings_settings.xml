@@ -44,6 +44,9 @@
     <string name="settings_color_not_selected">Chưa chọn</string>
     <string name="settings_box_background_title">Nền khung phụ đề kép</string>
     <string name="settings_box_background_hint">Chọn màu nền cho khung phụ đề kép thu gọn hiển thị trên video.</string>
+    <string name="settings_box_opacity_title">Độ mờ nền khung phụ đề kép</string>
+    <string name="settings_box_opacity_value">Độ mờ nền khung phụ đề kép: %1$d%%</string>
+    <string name="settings_box_opacity_hint">Điều chỉnh độ trong suốt của nền khung phụ đề hiển thị trên video.</string>
     <string name="settings_app_theme_title">Giao diện ứng dụng</string>
     <string name="settings_accent_color_title">Màu nhấn</string>
     <string name="settings_accent_color_hint">Đổi màu công tắc, thanh trượt, nút, viền đang chọn và các điểm nhấn khác của ứng dụng.</string>
@@ -82,6 +85,8 @@
     <string name="settings_group_languages">Ngôn ngữ</string>
     <string name="settings_section_reading_title">Chữ phụ đề</string>
     <string name="settings_text_size">Cỡ chữ: %1$d%%</string>
+    <string name="settings_original_text_size">Cỡ chữ gốc: %1$d%%</string>
+    <string name="settings_translated_text_size">Cỡ chữ bản dịch: %1$d%%</string>
     <string name="settings_highlight_spoken_words_title">Tô sáng từ đang nói</string>
     <string name="settings_highlight_spoken_words_description">Tô màu từ đang được nói để bạn dễ theo dõi.</string>
     <string name="settings_group_default_view">Chế độ xem mặc định</string>
@@ -208,6 +213,8 @@
     <string name="settings_often_changed">Hay thay đổi</string>
     <string name="settings_often_changed_empty">Các cài đặt bạn đổi từ 2 lần trong một tuần sẽ hiện ở đây.</string>
     <string name="settings_text_size_name">Cỡ chữ</string>
+    <string name="settings_original_text_size_name">Cỡ chữ gốc</string>
+    <string name="settings_translated_text_size_name">Cỡ chữ bản dịch</string>
     <string name="settings_pronunciation_volume_name">Âm lượng phát âm</string>
     <string name="settings_original_captions_name">Phụ đề gốc</string>
     <string name="settings_translated_captions_name">Phụ đề dịch</string>

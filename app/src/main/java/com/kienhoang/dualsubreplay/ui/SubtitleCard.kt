@@ -62,6 +62,8 @@ internal fun CompactSubtitleCard(
     active: Boolean,
     fontScale: Float,
     onReplay: () -> Unit,
+    originalFontScale: Float = 1f,
+    translatedFontScale: Float = 1f,
     activeWordIndex: Int = -1,
     originalColor: Color = subtitleColor(DEFAULT_ORIGINAL_COLOR_KEY, appThemeIsLight()),
     translatedColor: Color = subtitleColor(DEFAULT_TRANSLATED_COLOR_KEY, appThemeIsLight()),
@@ -118,6 +120,8 @@ internal fun CompactSubtitleCard(
             if (hiddenHint != null) {
                 HiddenLineText(hiddenHint, fontScale, Modifier.weight(1f))
             } else {
+                val effectiveOriginalScale = fontScale * normalizeLineFontScale(originalFontScale)
+                val effectiveTranslatedScale = fontScale * normalizeLineFontScale(translatedFontScale)
                 Column(Modifier.weight(1f)) {
                     val isSentenceEligibleForPos = !wordLearningActiveOnly || active
                     // true marks the translation line.
@@ -128,7 +132,7 @@ internal fun CompactSubtitleCard(
                                 segment,
                                 active,
                                 activeWordIndex,
-                                fontScale,
+                                effectiveTranslatedScale,
                                 originalColor,
                                 translatedColor,
                                 highlightColor,
@@ -147,7 +151,7 @@ internal fun CompactSubtitleCard(
                                 segment,
                                 active,
                                 activeWordIndex,
-                                fontScale,
+                                effectiveOriginalScale,
                                 originalColor,
                                 translatedColor,
                                 highlightColor,
@@ -169,14 +173,14 @@ internal fun CompactSubtitleCard(
                                 third,
                                 thirdLanguage,
                                 segment,
-                                fontScale,
+                                effectiveTranslatedScale,
                                 translatedColor,
                                 highlightColor,
                                 onWordClick,
                                 onReplay,
                             )
                         } else {
-                            ThirdLineText(third, fontScale, translatedColor, Modifier.padding(top = 2.dp))
+                            ThirdLineText(third, effectiveTranslatedScale, translatedColor, Modifier.padding(top = 2.dp))
                         }
                     }
                 }

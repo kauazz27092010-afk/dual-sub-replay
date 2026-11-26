@@ -44,6 +44,9 @@
     <string name="settings_color_not_selected">No seleccionado</string>
     <string name="settings_box_background_title">Fondo del cuadro de subtítulos dobles</string>
     <string name="settings_box_background_hint">Elige el color de fondo del cuadro compacto de subtítulos dobles que aparece sobre el video.</string>
+    <string name="settings_box_opacity_title">Opacidad del cuadro de subtítulos</string>
+    <string name="settings_box_opacity_value">Opacidad del cuadro de subtítulos: %1$d%%</string>
+    <string name="settings_box_opacity_hint">Ajusta qué tan transparente u opaco es el fondo del cuadro de subtítulos sobre el video.</string>
     <string name="settings_app_theme_title">Tema de la app</string>
     <string name="settings_accent_color_title">Color de acento</string>
     <string name="settings_accent_color_hint">Cambia los interruptores, controles deslizantes, botones, bordes activos y otros acentos de la app.</string>
@@ -82,6 +85,8 @@
     <string name="settings_group_languages">Idiomas</string>
     <string name="settings_section_reading_title">Texto de subtítulos</string>
     <string name="settings_text_size">Tamaño del texto: %1$d%%</string>
+    <string name="settings_original_text_size">Tamaño del texto original: %1$d%%</string>
+    <string name="settings_translated_text_size">Tamaño del texto traducido: %1$d%%</string>
     <string name="settings_highlight_spoken_words_title">Resaltar las palabras habladas</string>
     <string name="settings_highlight_spoken_words_description">Colorea la palabra que se está diciendo para que puedas seguir el ritmo.</string>
     <string name="settings_group_default_view">Vista predeterminada</string>
@@ -208,6 +213,8 @@
     <string name="settings_often_changed">Cambiados a menudo</string>
     <string name="settings_often_changed_empty">Aquí aparecen los ajustes que cambias dos veces en una semana.</string>
     <string name="settings_text_size_name">Tamaño del texto</string>
+    <string name="settings_original_text_size_name">Tamaño del texto original</string>
+    <string name="settings_translated_text_size_name">Tamaño del texto traducido</string>
     <string name="settings_pronunciation_volume_name">Volumen de pronunciación</string>
     <string name="settings_original_captions_name">Subtítulos originales</string>
     <string name="settings_translated_captions_name">Subtítulos traducidos</string>

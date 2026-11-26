@@ -91,6 +91,18 @@ internal enum class SearchableSetting(
     ),
     TRANSLATE_TO(R.string.settings_translate_to, MoreSettingsSection.LANGUAGES, "target_language_picker", setOf("target_language")),
     TEXT_SIZE(R.string.settings_text_size_name, MoreSettingsSection.READING, "font_scale", setOf("font_scale")),
+    ORIGINAL_TEXT_SIZE(
+        R.string.settings_original_text_size_name,
+        MoreSettingsSection.READING,
+        "original_font_scale",
+        setOf(ORIGINAL_FONT_SCALE_PREFERENCE),
+    ),
+    TRANSLATED_TEXT_SIZE(
+        R.string.settings_translated_text_size_name,
+        MoreSettingsSection.READING,
+        "translated_font_scale",
+        setOf(TRANSLATED_FONT_SCALE_PREFERENCE),
+    ),
     ORIGINAL_CAPTIONS(
         R.string.settings_original_captions_name,
         MoreSettingsSection.READING,
@@ -411,6 +423,12 @@ internal enum class SearchableSetting(
         MoreSettingsSection.COLORS,
         "box_background",
         setOf(SUBTITLE_BOX_BACKGROUND_PREFERENCE),
+    ),
+    BOX_OPACITY(
+        R.string.settings_box_opacity_title,
+        MoreSettingsSection.COLORS,
+        "box_opacity",
+        setOf(SUBTITLE_BOX_OPACITY_PREFERENCE),
     ),
     APP_COLORS(R.string.settings_app_colors_title, MoreSettingsSection.COLORS, "app_colors", setOf(APP_COLOR_THEME_PREFERENCE)),
     ACCENT_COLOR(R.string.settings_accent_color_title, MoreSettingsSection.COLORS, "theme_accent", setOf(APP_THEME_ACCENT_PREFERENCE)),

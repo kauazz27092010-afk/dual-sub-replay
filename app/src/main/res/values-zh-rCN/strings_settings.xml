@@ -44,6 +44,9 @@
     <string name="settings_color_not_selected">未选择</string>
     <string name="settings_box_background_title">双语字幕框背景</string>
     <string name="settings_box_background_hint">选择显示在视频上方的紧凑双语字幕框的背景颜色。</string>
+    <string name="settings_box_opacity_title">双语字幕框不透明度</string>
+    <string name="settings_box_opacity_value">双语字幕框不透明度：%1$d%%</string>
+    <string name="settings_box_opacity_hint">调节显示在视频上方的字幕框背景透明度（0% 为完全透明，100% 为完全不透明）。</string>
     <string name="settings_app_theme_title">应用主题</string>
     <string name="settings_accent_color_title">强调色</string>
     <string name="settings_accent_color_hint">更改开关、滑块、按钮、选中边框及其他应用强调元素的颜色。</string>
@@ -82,6 +85,8 @@
     <string name="settings_group_languages">语言</string>
     <string name="settings_section_reading_title">字幕文字</string>
     <string name="settings_text_size">文字大小：%1$d%%</string>
+    <string name="settings_original_text_size">原文文字大小：%1$d%%</string>
+    <string name="settings_translated_text_size">译文文字大小：%1$d%%</string>
     <string name="settings_highlight_spoken_words_title">高亮当前说出的词</string>
     <string name="settings_highlight_spoken_words_description">为正在说出的词着色，方便跟读。</string>
     <string name="settings_group_default_view">默认视图</string>
@@ -208,6 +213,8 @@
     <string name="settings_often_changed">常改设置</string>
     <string name="settings_often_changed_empty">一周内更改过两次的设置会显示在这里。</string>
     <string name="settings_text_size_name">文字大小</string>
+    <string name="settings_original_text_size_name">原文文字大小</string>
+    <string name="settings_translated_text_size_name">译文文字大小</string>
     <string name="settings_pronunciation_volume_name">发音音量</string>
     <string name="settings_original_captions_name">原文字幕</string>
     <string name="settings_translated_captions_name">翻译字幕</string>

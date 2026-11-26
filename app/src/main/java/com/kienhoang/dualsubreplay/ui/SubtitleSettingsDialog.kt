@@ -744,6 +744,8 @@ internal fun SubtitleSettingsDialog(
     targetLanguage: String,
     availableSourceLanguages: List<CaptionLanguage>,
     fontScale: Float,
+    originalFontScale: Float = 1f,
+    translatedFontScale: Float = 1f,
     recentTargetLanguages: List<String> = emptyList(),
     portraitPanelOffsetFraction: Float = DEFAULT_PORTRAIT_PANEL_OFFSET_FRACTION,
     onPortraitPanelOffsetFractionChange: (Float) -> Unit = {},
@@ -782,6 +784,8 @@ internal fun SubtitleSettingsDialog(
     thirdLine: ThirdLineChoice = ThirdLineChoice(),
     onThirdLineChange: (ThirdLineChoice) -> Unit = {},
     onFontScaleChange: (Float) -> Unit,
+    onOriginalFontScaleChange: (Float) -> Unit = {},
+    onTranslatedFontScaleChange: (Float) -> Unit = {},
     onLandscapeSplitChange: (Boolean) -> Unit,
     onPlayerModeChange: (PlayerExperienceMode) -> Unit = {},
     onOriginalColorChange: (String) -> Unit = {},
@@ -957,6 +961,51 @@ internal fun SubtitleSettingsDialog(
                         steps = fontScaleSteps,
                     )
                 }
+                val lineFontScaleRange = MIN_LINE_FONT_SCALE..MAX_LINE_FONT_SCALE
+                val originalFontScaleLabel =
+                    stringResource(R.string.settings_original_text_size, Math.round(originalFontScale * 100f))
+                Column(Modifier.fillMaxWidth().settingAnchor("original_font_scale")) {
+                    Text(originalFontScaleLabel)
+                    Slider(
+                        value = originalFontScale,
+                        onValueChange = onOriginalFontScaleChange,
+                        modifier =
+                            Modifier
+                                .tvArrowsLeave()
+                                .peekWhileHeld(
+                                    peek.originalFontScaleSlider,
+                                    originalFontScaleLabel,
+                                    originalFontScale,
+                                    lineFontScaleRange,
+                                    LINE_FONT_SCALE_STEPS,
+                                ).testTag("original_font_scale_slider"),
+                        interactionSource = peek.originalFontScaleSlider.interaction,
+                        valueRange = lineFontScaleRange,
+                        steps = LINE_FONT_SCALE_STEPS,
+                    )
+                }
+                val translatedFontScaleLabel =
+                    stringResource(R.string.settings_translated_text_size, Math.round(translatedFontScale * 100f))
+                Column(Modifier.fillMaxWidth().settingAnchor("translated_font_scale")) {
+                    Text(translatedFontScaleLabel)
+                    Slider(
+                        value = translatedFontScale,
+                        onValueChange = onTranslatedFontScaleChange,
+                        modifier =
+                            Modifier
+                                .tvArrowsLeave()
+                                .peekWhileHeld(
+                                    peek.translatedFontScaleSlider,
+                                    translatedFontScaleLabel,
+                                    translatedFontScale,
+                                    lineFontScaleRange,
+                                    LINE_FONT_SCALE_STEPS,
+                                ).testTag("translated_font_scale_slider"),
+                        interactionSource = peek.translatedFontScaleSlider.interaction,
+                        valueRange = lineFontScaleRange,
+                        steps = LINE_FONT_SCALE_STEPS,
+                    )
+                }
                 CaptionVisibilitySettings()
                 Column(Modifier.fillMaxWidth().settingAnchor("translation_position")) {
                     TranslationPositionSettings(translationPosition, onTranslationPositionChange)
@@ -1073,7 +1122,7 @@ internal fun SubtitleSettingsDialog(
                     )
                 }
                 SettingsSectionDivider()
-                AdvancedAppearanceSettings()
+                AdvancedAppearanceSettings(boxOpacityPeekSlider = peek.boxOpacitySlider)
             },
         )
 

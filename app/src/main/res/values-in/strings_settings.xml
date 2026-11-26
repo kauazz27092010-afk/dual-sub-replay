@@ -44,6 +44,9 @@
     <string name="settings_color_not_selected">Tidak dipilih</string>
     <string name="settings_box_background_title">Latar kotak subtitel ganda</string>
     <string name="settings_box_background_hint">Pilih warna latar kotak subtitel ganda ringkas yang tampil di atas video.</string>
+    <string name="settings_box_opacity_title">Opasitas kotak subtitel ganda</string>
+    <string name="settings_box_opacity_value">Opasitas kotak subtitel ganda: %1$d%%</string>
+    <string name="settings_box_opacity_hint">Atur tingkat transparansi latar belakang kotak subtitel di atas video.</string>
     <string name="settings_app_theme_title">Tema aplikasi</string>
     <string name="settings_accent_color_title">Warna aksen</string>
     <string name="settings_accent_color_hint">Mengubah sakelar, penggeser, tombol, bingkai aktif, dan aksen aplikasi lainnya.</string>
@@ -82,6 +85,8 @@
     <string name="settings_group_languages">Bahasa</string>
     <string name="settings_section_reading_title">Teks subtitel</string>
     <string name="settings_text_size">Ukuran teks: %1$d%%</string>
+    <string name="settings_original_text_size">Ukuran teks asli: %1$d%%</string>
+    <string name="settings_translated_text_size">Ukuran teks terjemahan: %1$d%%</string>
     <string name="settings_highlight_spoken_words_title">Sorot kata yang diucapkan</string>
     <string name="settings_highlight_spoken_words_description">Warnai kata yang sedang diucapkan agar Anda mudah mengikutinya.</string>
     <string name="settings_group_default_view">Tampilan default</string>
@@ -208,6 +213,8 @@
     <string name="settings_often_changed">Sering diubah</string>
     <string name="settings_often_changed_empty">Pengaturan yang Anda ubah dua kali dalam seminggu muncul di sini.</string>
     <string name="settings_text_size_name">Ukuran teks</string>
+    <string name="settings_original_text_size_name">Ukuran teks asli</string>
+    <string name="settings_translated_text_size_name">Ukuran teks terjemahan</string>
     <string name="settings_pronunciation_volume_name">Volume pengucapan</string>
     <string name="settings_original_captions_name">Subtitel asli</string>
     <string name="settings_translated_captions_name">Subtitel terjemahan</string>

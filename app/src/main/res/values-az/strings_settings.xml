@@ -44,6 +44,9 @@
     <string name="settings_color_not_selected">Seçilməyib</string>
     <string name="settings_box_background_title">İkidilli altyazı qutusunun fonu</string>
     <string name="settings_box_background_hint">Videonun üzərində göstərilən yığcam ikidilli altyazı qutusunun fon rəngini seçin.</string>
+    <string name="settings_box_opacity_title">Altyazı qutusunun şəffaflığı</string>
+    <string name="settings_box_opacity_value">Altyazı qutusunun şəffaflığı: %1$d%%</string>
+    <string name="settings_box_opacity_hint">Videonun üzərində göstərilən altyazı qutusunun fon şəffaflığını tənzimləyin.</string>
     <string name="settings_app_theme_title">Tətbiq mövzusu</string>
     <string name="settings_accent_color_title">Vurğu rəngi</string>
     <string name="settings_accent_color_hint">Açarları, sürüşdürücüləri, düymələri, aktiv çərçivələri və tətbiqin digər vurğularını dəyişir.</string>
@@ -82,6 +85,8 @@
     <string name="settings_group_languages">Dillər</string>
     <string name="settings_section_reading_title">Altyazı mətni</string>
     <string name="settings_text_size">Mətn ölçüsü: %1$d%%</string>
+    <string name="settings_original_text_size">Orijinal mətn ölçüsü: %1$d%%</string>
+    <string name="settings_translated_text_size">Tərcümə mətn ölçüsü: %1$d%%</string>
     <string name="settings_highlight_spoken_words_title">Deyilən sözləri vurğula</string>
     <string name="settings_highlight_spoken_words_description">İzləyə bilməniz üçün deyilən sözü rəngləyir.</string>
     <string name="settings_group_default_view">Standart görünüş</string>
@@ -208,6 +213,8 @@
     <string name="settings_often_changed">Tez-tez dəyişdirilən</string>
     <string name="settings_often_changed_empty">Bir həftədə iki dəfə dəyişdiyiniz ayarlar burada görünür.</string>
     <string name="settings_text_size_name">Mətn ölçüsü</string>
+    <string name="settings_original_text_size_name">Orijinal mətn ölçüsü</string>
+    <string name="settings_translated_text_size_name">Tərcümə mətn ölçüsü</string>
     <string name="settings_pronunciation_volume_name">Tələffüz səsi</string>
     <string name="settings_original_captions_name">Orijinal altyazılar</string>
     <string name="settings_translated_captions_name">Tərcümə altyazıları</string>

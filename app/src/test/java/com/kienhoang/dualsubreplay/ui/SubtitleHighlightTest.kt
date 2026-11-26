@@ -171,10 +171,28 @@ class SubtitleWordHighlightTest {
         assertEquals(DEFAULT_APP_THEME_ACCENT_KEY, storedAppThemeAccentKey("unknown"))
     }
 
+    @Test fun subtitleBoxOpacityClampsRoundsAndAppliesAlpha() {
+        assertEquals(DEFAULT_SUBTITLE_BOX_OPACITY, normalizeSubtitleBoxOpacity(Float.NaN))
+        assertEquals(0f, normalizeSubtitleBoxOpacity(-0.25f))
+        assertEquals(1f, normalizeSubtitleBoxOpacity(1.5f))
+        assertEquals(0.45f, normalizeSubtitleBoxOpacity(0.44f))
+        assertEquals(0.5f, subtitleBoxBackgroundColor("black", 0.5f).alpha)
+        assertEquals(0f, subtitleBoxBackgroundColor("deep_teal", 0f).alpha)
+    }
+
+    @Test fun lineFontScaleClampsAndRounds() {
+        assertEquals(1f, normalizeLineFontScale(Float.NaN))
+        assertEquals(MIN_LINE_FONT_SCALE, normalizeLineFontScale(0.2f))
+        assertEquals(MAX_LINE_FONT_SCALE, normalizeLineFontScale(3.0f))
+        assertEquals(1.25f, normalizeLineFontScale(1.24f))
+    }
+
     @Test fun resettableSettingKeysCoverEveryUserFacingPreference() {
         val expected =
             setOf(
                 "font_scale",
+                ORIGINAL_FONT_SCALE_PREFERENCE,
+                TRANSLATED_FONT_SCALE_PREFERENCE,
                 PORTRAIT_PANEL_OFFSET_PREFERENCE,
                 "preferred_caption_language",
                 "target_language",
@@ -200,6 +218,7 @@ class SubtitleWordHighlightTest {
                 SUBTITLE_TRANSLATED_COLOR_PREFERENCE,
                 SUBTITLE_HIGHLIGHT_COLOR_PREFERENCE,
                 SUBTITLE_BOX_BACKGROUND_PREFERENCE,
+                SUBTITLE_BOX_OPACITY_PREFERENCE,
                 APP_THEME_ACCENT_PREFERENCE,
                 APP_COLOR_THEME_PREFERENCE,
                 WORD_HIGHLIGHT_ENABLED_PREFERENCE,

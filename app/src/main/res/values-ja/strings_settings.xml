@@ -44,6 +44,9 @@
     <string name="settings_color_not_selected">未選択</string>
     <string name="settings_box_background_title">2言語字幕ボックスの背景</string>
     <string name="settings_box_background_hint">動画の上に表示されるコンパクトな2言語字幕ボックスの背景色を選びます。</string>
+    <string name="settings_box_opacity_title">2言語字幕ボックスの不透明度</string>
+    <string name="settings_box_opacity_value">2言語字幕ボックスの不透明度：%1$d%%</string>
+    <string name="settings_box_opacity_hint">動画の上に表示される字幕ボックス背景の透明度を調整します。</string>
     <string name="settings_app_theme_title">アプリのテーマ</string>
     <string name="settings_accent_color_title">アクセントカラー</string>
     <string name="settings_accent_color_hint">スイッチ、スライダー、ボタン、選択中の枠線など、アプリのアクセントを変更します。</string>
@@ -82,6 +85,8 @@
     <string name="settings_group_languages">言語</string>
     <string name="settings_section_reading_title">字幕の文字</string>
     <string name="settings_text_size">文字サイズ: %1$d%%</string>
+    <string name="settings_original_text_size">原文の文字サイズ: %1$d%%</string>
+    <string name="settings_translated_text_size">翻訳の文字サイズ: %1$d%%</string>
     <string name="settings_highlight_spoken_words_title">発話中の単語をハイライト</string>
     <string name="settings_highlight_spoken_words_description">話されている単語に色を付けて、聞きながら追えるようにします。</string>
     <string name="settings_group_default_view">デフォルトの表示</string>
@@ -208,6 +213,8 @@
     <string name="settings_often_changed">よく変更する設定</string>
     <string name="settings_often_changed_empty">1週間に2回変更した設定がここに表示されます。</string>
     <string name="settings_text_size_name">文字サイズ</string>
+    <string name="settings_original_text_size_name">原文の文字サイズ</string>
+    <string name="settings_translated_text_size_name">翻訳の文字サイズ</string>
     <string name="settings_pronunciation_volume_name">発音の音量</string>
     <string name="settings_original_captions_name">元の字幕</string>
     <string name="settings_translated_captions_name">翻訳字幕</string>

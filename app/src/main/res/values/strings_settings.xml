@@ -44,6 +44,9 @@
     <string name="settings_color_not_selected">Not selected</string>
     <string name="settings_box_background_title">Dual-sub box background</string>
     <string name="settings_box_background_hint">Choose the background color of the compact dual-subtitle box shown over the video.</string>
+    <string name="settings_box_opacity_title">Dual-sub box opacity</string>
+    <string name="settings_box_opacity_value">Dual-sub box opacity: %1$d%%</string>
+    <string name="settings_box_opacity_hint">Adjust how transparent or solid the subtitle box background is over the video.</string>
     <string name="settings_app_theme_title">App theme</string>
     <string name="settings_accent_color_title">Accent color</string>
     <string name="settings_accent_color_hint">Changes switches, sliders, buttons, active borders, and other app accents.</string>
@@ -82,6 +85,8 @@
     <string name="settings_group_languages">Languages</string>
     <string name="settings_section_reading_title">Subtitle text</string>
     <string name="settings_text_size">Text size: %1$d%%</string>
+    <string name="settings_original_text_size">Original text size: %1$d%%</string>
+    <string name="settings_translated_text_size">Translated text size: %1$d%%</string>
     <string name="settings_highlight_spoken_words_title">Highlight spoken words</string>
     <string name="settings_highlight_spoken_words_description">Tint the word being spoken so you can follow along.</string>
     <string name="settings_group_default_view">Default view</string>
@@ -208,6 +213,8 @@
     <string name="settings_often_changed">Often changed</string>
     <string name="settings_often_changed_empty">Settings you change twice in a week show up here.</string>
     <string name="settings_text_size_name">Text size</string>
+    <string name="settings_original_text_size_name">Original text size</string>
+    <string name="settings_translated_text_size_name">Translated text size</string>
     <string name="settings_pronunciation_volume_name">Pronunciation volume</string>
     <string name="settings_original_captions_name">Original captions</string>
     <string name="settings_translated_captions_name">Translated captions</string>

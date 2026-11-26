@@ -44,6 +44,9 @@
     <string name="settings_color_not_selected">Não selecionado</string>
     <string name="settings_box_background_title">Fundo da caixa de legendas duplas</string>
     <string name="settings_box_background_hint">Escolha a cor de fundo da caixa compacta de legendas duplas exibida sobre o vídeo.</string>
+    <string name="settings_box_opacity_title">Opacidade da caixa de legendas</string>
+    <string name="settings_box_opacity_value">Opacidade da caixa de legendas: %1$d%%</string>
+    <string name="settings_box_opacity_hint">Ajuste a transparência do fundo da caixa de legendas exibida sobre o vídeo.</string>
     <string name="settings_app_theme_title">Tema do app</string>
     <string name="settings_accent_color_title">Cor de destaque</string>
     <string name="settings_accent_color_hint">Muda as chaves, controles deslizantes, botões, bordas ativas e outros destaques do app.</string>
@@ -82,6 +85,8 @@
     <string name="settings_group_languages">Idiomas</string>
     <string name="settings_section_reading_title">Texto das legendas</string>
     <string name="settings_text_size">Tamanho do texto: %1$d%%</string>
+    <string name="settings_original_text_size">Tamanho do texto original: %1$d%%</string>
+    <string name="settings_translated_text_size">Tamanho do texto traduzido: %1$d%%</string>
     <string name="settings_highlight_spoken_words_title">Destacar palavras faladas</string>
     <string name="settings_highlight_spoken_words_description">Colore a palavra que está sendo falada para você acompanhar.</string>
     <string name="settings_group_default_view">Visualização padrão</string>
@@ -208,6 +213,8 @@
     <string name="settings_often_changed">Alteradas com frequência</string>
     <string name="settings_often_changed_empty">As configurações que você muda duas vezes em uma semana aparecem aqui.</string>
     <string name="settings_text_size_name">Tamanho do texto</string>
+    <string name="settings_original_text_size_name">Tamanho do texto original</string>
+    <string name="settings_translated_text_size_name">Tamanho do texto traduzido</string>
     <string name="settings_pronunciation_volume_name">Volume da pronúncia</string>
     <string name="settings_original_captions_name">Legendas originais</string>
     <string name="settings_translated_captions_name">Legendas traduzidas</string>

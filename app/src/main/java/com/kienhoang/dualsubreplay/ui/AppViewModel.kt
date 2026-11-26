@@ -298,6 +298,10 @@ class AppViewModel internal constructor(
                 thirdLineEnabled = preferences.getBoolean(THIRD_LINE_ENABLED_PREFERENCE, false),
                 thirdLanguage = storedThirdLanguage(preferences.getString(THIRD_LANGUAGE_PREFERENCE, null)),
                 fontScale = normalizeFontScale(preferences.getFloat("font_scale", 1f)),
+                originalFontScale =
+                    normalizeLineFontScale(preferences.getFloat(ORIGINAL_FONT_SCALE_PREFERENCE, 1f)),
+                translatedFontScale =
+                    normalizeLineFontScale(preferences.getFloat(TRANSLATED_FONT_SCALE_PREFERENCE, 1f)),
                 portraitPanelOffsetFraction =
                     normalizePortraitPanelOffsetFraction(
                         preferences.getFloat(
@@ -1146,6 +1150,18 @@ class AppViewModel internal constructor(
         _state.update { it.copy(fontScale = safeScale) }
     }
 
+    fun setOriginalFontScale(scale: Float) {
+        val safeScale = normalizeLineFontScale(scale)
+        preferences.edit().putFloat(ORIGINAL_FONT_SCALE_PREFERENCE, safeScale).apply()
+        _state.update { it.copy(originalFontScale = safeScale) }
+    }
+
+    fun setTranslatedFontScale(scale: Float) {
+        val safeScale = normalizeLineFontScale(scale)
+        preferences.edit().putFloat(TRANSLATED_FONT_SCALE_PREFERENCE, safeScale).apply()
+        _state.update { it.copy(translatedFontScale = safeScale) }
+    }
+
     fun setPortraitPanelOffsetFraction(offsetFraction: Float) {
         val normalized = normalizePortraitPanelOffsetFraction(offsetFraction)
         preferences.edit().putFloat(PORTRAIT_PANEL_OFFSET_PREFERENCE, normalized).apply()
@@ -1662,6 +1678,8 @@ class AppViewModel internal constructor(
                 thirdLineEnabled = false,
                 thirdLanguage = null,
                 fontScale = 1f,
+                originalFontScale = 1f,
+                translatedFontScale = 1f,
                 portraitPanelOffsetFraction = DEFAULT_PORTRAIT_PANEL_OFFSET_FRACTION,
                 landscapeSplitEnabled = true,
                 originalColorKey = DEFAULT_ORIGINAL_COLOR_KEY,

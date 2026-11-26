@@ -310,6 +310,16 @@ fun LearningPlayerRoot(viewModel: AppViewModel) {
             ),
         )
     }
+    var subtitleBoxOpacity by remember {
+        mutableStateOf(
+            normalizeSubtitleBoxOpacity(
+                preferences.getFloat(
+                    SUBTITLE_BOX_OPACITY_PREFERENCE,
+                    DEFAULT_SUBTITLE_BOX_OPACITY,
+                ),
+            ),
+        )
+    }
     var overlayVerticalPosition by remember {
         mutableStateOf(
             if (rememberOverlayPosition) {
@@ -387,6 +397,12 @@ fun LearningPlayerRoot(viewModel: AppViewModel) {
                         subtitleBoxBackgroundKey =
                             storedSubtitleBoxBackgroundKey(
                                 sharedPreferences.getString(key, DEFAULT_SUBTITLE_BOX_BACKGROUND_KEY),
+                            )
+                    }
+                    SUBTITLE_BOX_OPACITY_PREFERENCE -> {
+                        subtitleBoxOpacity =
+                            normalizeSubtitleBoxOpacity(
+                                sharedPreferences.getFloat(key, DEFAULT_SUBTITLE_BOX_OPACITY),
                             )
                     }
                 }
@@ -532,14 +548,15 @@ fun LearningPlayerRoot(viewModel: AppViewModel) {
             orientation = configuration.orientation,
         )
     // Fullscreen landscape defaults close to the top and still keeps the whole box on-screen.
+    val effectiveOverlayFontScale = state.fontScale * maxOf(state.originalFontScale, state.translatedFontScale)
     val fullscreenBottomPadding =
         fullscreenOverlayBottomPaddingWithControlsDp(
             position = fullscreenVerticalPosition,
             screenHeightDp = configuration.screenHeightDp,
             controlsLiftDp = controlsLiftDp,
-            fontScale = state.fontScale,
+            fontScale = effectiveOverlayFontScale,
         ).dp
-    val subtitleBoxBackgroundColor = subtitleBoxBackgroundColor(subtitleBoxBackgroundKey)
+    val subtitleBoxBackgroundColor = subtitleBoxBackgroundColor(subtitleBoxBackgroundKey, subtitleBoxOpacity)
 
     val fullscreenLearningOverlay: @Composable BoxScope.() -> Unit = {
         HideFullscreenSystemBars()
@@ -555,6 +572,8 @@ fun LearningPlayerRoot(viewModel: AppViewModel) {
                 LearningSubtitleOverlay(
                     content = overlayContent,
                     fontScale = state.fontScale,
+                    originalFontScale = state.originalFontScale,
+                    translatedFontScale = state.translatedFontScale,
                     position = fullscreenVerticalPosition,
                     orientation = configuration.orientation,
                     movableEnabled = movableSubtitleBox,
@@ -661,6 +680,8 @@ fun LearningPlayerRoot(viewModel: AppViewModel) {
                     LearningSubtitleOverlay(
                         content = content,
                         fontScale = state.fontScale,
+                        originalFontScale = state.originalFontScale,
+                        translatedFontScale = state.translatedFontScale,
                         position = overlayVerticalPosition,
                         orientation = configuration.orientation,
                         movableEnabled = movableSubtitleBox,
@@ -722,6 +743,8 @@ internal fun LearningSubtitleOverlay(
     fontScale: Float,
     position: Float = DEFAULT_OVERLAY_VERTICAL_POSITION,
     modifier: Modifier = Modifier,
+    originalFontScale: Float = 1f,
+    translatedFontScale: Float = 1f,
     orientation: Int = Configuration.ORIENTATION_PORTRAIT,
     movableEnabled: Boolean = true,
     horizontalPosition: Float = DEFAULT_OVERLAY_HORIZONTAL_POSITION,
@@ -753,10 +776,15 @@ internal fun LearningSubtitleOverlay(
     var overlayActionsVisible by remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
     val density = LocalDensity.current
+    val effectiveOriginalScale = fontScale * normalizeLineFontScale(originalFontScale)
+    val effectiveTranslatedScale = fontScale * normalizeLineFontScale(translatedFontScale)
     val dragTravelPx =
         with(density) {
             if (isFullscreen) {
-                fullscreenOverlayDragTravelDp(configuration.screenHeightDp, fontScale).dp.toPx()
+                fullscreenOverlayDragTravelDp(
+                    configuration.screenHeightDp,
+                    maxOf(effectiveOriginalScale, effectiveTranslatedScale),
+                ).dp.toPx()
             } else if (lockToVideo) {
                 (configuration.screenHeightDp.dp * 0.45f).toPx()
             } else {
@@ -825,8 +853,8 @@ internal fun LearningSubtitleOverlay(
         shape = RoundedCornerShape(10.dp),
         color = backgroundColor,
         contentColor = Color(0xFFF3FAFA),
-        tonalElevation = 4.dp,
-        shadowElevation = 6.dp,
+        tonalElevation = if (backgroundColor.alpha > 0f) (4f * backgroundColor.alpha).dp else 0.dp,
+        shadowElevation = if (backgroundColor.alpha > 0f) (6f * backgroundColor.alpha).dp else 0.dp,
     ) {
         Row(
             modifier =
@@ -873,8 +901,8 @@ internal fun LearningSubtitleOverlay(
                                     annotated = annotated,
                                     style =
                                         TextStyle(
-                                            fontSize = (17f * fontScale).sp,
-                                            lineHeight = (21f * fontScale).sp,
+                                            fontSize = (17f * effectiveOriginalScale).sp,
+                                            lineHeight = (21f * effectiveOriginalScale).sp,
                                             fontWeight = FontWeight.Medium,
                                             color = originalColor,
                                         ),
@@ -893,8 +921,8 @@ internal fun LearningSubtitleOverlay(
                                     modifier = if (isFullscreen) Modifier else Modifier.lineSide(annotated, LocalLayoutDirection.current),
                                     style = LocalTextStyle.current.inLineDirection(),
                                     textAlign = if (isFullscreen) TextAlign.Center else TextAlign.Unspecified,
-                                    fontSize = (17f * fontScale).sp,
-                                    lineHeight = (21f * fontScale).sp,
+                                    fontSize = (17f * effectiveOriginalScale).sp,
+                                    lineHeight = (21f * effectiveOriginalScale).sp,
                                     fontWeight = FontWeight.Medium,
                                     color = originalColor,
                                     maxLines = Int.MAX_VALUE,
@@ -934,8 +962,8 @@ internal fun LearningSubtitleOverlay(
                                     annotated = annotated,
                                     style =
                                         TextStyle(
-                                            fontSize = (14f * fontScale).sp,
-                                            lineHeight = (18f * fontScale).sp,
+                                            fontSize = (14f * effectiveTranslatedScale).sp,
+                                            lineHeight = (18f * effectiveTranslatedScale).sp,
                                             color = translatedColor,
                                         ),
                                     languageCode = targetLanguageCode,
@@ -954,8 +982,8 @@ internal fun LearningSubtitleOverlay(
                                     modifier = if (isFullscreen) Modifier else Modifier.lineSide(annotated, LocalLayoutDirection.current),
                                     style = LocalTextStyle.current.inLineDirection(),
                                     textAlign = if (isFullscreen) TextAlign.Center else TextAlign.Unspecified,
-                                    fontSize = (14f * fontScale).sp,
-                                    lineHeight = (18f * fontScale).sp,
+                                    fontSize = (14f * effectiveTranslatedScale).sp,
+                                    lineHeight = (18f * effectiveTranslatedScale).sp,
                                     color = translatedColor,
                                     maxLines = Int.MAX_VALUE,
                                     overflow = TextOverflow.Ellipsis,
@@ -970,7 +998,7 @@ internal fun LearningSubtitleOverlay(
                 content.thirdText?.let { third ->
                     Spacer(Modifier.size(2.dp))
                     val align = if (isFullscreen) TextAlign.Center else TextAlign.Unspecified
-                    ThirdLineText(third, fontScale, translatedColor, textAlign = align)
+                    ThirdLineText(third, effectiveTranslatedScale, translatedColor, textAlign = align)
                 }
                 OverlayStatusAndButton(content, onRetryTranscript)
             }

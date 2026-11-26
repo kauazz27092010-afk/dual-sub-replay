@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,10 +17,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -34,10 +37,11 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.kienhoang.dualsubreplay.R
+import kotlin.math.roundToInt
 
 /** Overlay box, app and accent colors, shown in the "Colors & theme" settings section. */
 @Composable
-internal fun AdvancedAppearanceSettings() {
+internal fun AdvancedAppearanceSettings(boxOpacityPeekSlider: PeekSlider? = null) {
     val context = LocalContext.current
     val preferences = remember(context) {
         context.getSharedPreferences("dual_sub_preferences", 0)
@@ -48,6 +52,16 @@ internal fun AdvancedAppearanceSettings() {
                 preferences.getString(
                     SUBTITLE_BOX_BACKGROUND_PREFERENCE,
                     DEFAULT_SUBTITLE_BOX_BACKGROUND_KEY,
+                ),
+            ),
+        )
+    }
+    var boxOpacity by remember {
+        mutableFloatStateOf(
+            normalizeSubtitleBoxOpacity(
+                preferences.getFloat(
+                    SUBTITLE_BOX_OPACITY_PREFERENCE,
+                    DEFAULT_SUBTITLE_BOX_OPACITY,
                 ),
             ),
         )
@@ -69,6 +83,11 @@ internal fun AdvancedAppearanceSettings() {
                 SUBTITLE_BOX_BACKGROUND_PREFERENCE -> {
                     backgroundKey = storedSubtitleBoxBackgroundKey(
                         sharedPreferences.getString(key, DEFAULT_SUBTITLE_BOX_BACKGROUND_KEY),
+                    )
+                }
+                SUBTITLE_BOX_OPACITY_PREFERENCE -> {
+                    boxOpacity = normalizeSubtitleBoxOpacity(
+                        sharedPreferences.getFloat(key, DEFAULT_SUBTITLE_BOX_OPACITY),
                     )
                 }
                 APP_COLOR_THEME_PREFERENCE -> themeKey = storedAppColorTheme(sharedPreferences.getString(key, null)).key
@@ -97,6 +116,39 @@ internal fun AdvancedAppearanceSettings() {
     ) {
         backgroundKey = it
         save(SUBTITLE_BOX_BACKGROUND_PREFERENCE, it)
+    }
+
+    Spacer(Modifier.height(10.dp))
+    val ownOpacityInteraction = remember { MutableInteractionSource() }
+    val opacityPercent = (boxOpacity * 100f).roundToInt()
+    val opacityTitle = stringResource(R.string.settings_box_opacity_title)
+    val opacityLabel = stringResource(R.string.settings_box_opacity_value, opacityPercent)
+    val opacityRange = MIN_SUBTITLE_BOX_OPACITY..MAX_SUBTITLE_BOX_OPACITY
+    Column(Modifier.fillMaxWidth().settingAnchor("box_opacity")) {
+        Text(opacityLabel)
+        Text(
+            stringResource(R.string.settings_box_opacity_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Slider(
+            value = boxOpacity,
+            onValueChange = { raw ->
+                val normalized = normalizeSubtitleBoxOpacity(raw)
+                boxOpacity = normalized
+                preferences.edit().putFloat(SUBTITLE_BOX_OPACITY_PREFERENCE, normalized).apply()
+            },
+            valueRange = opacityRange,
+            steps = SUBTITLE_BOX_OPACITY_STEPS,
+            interactionSource = boxOpacityPeekSlider?.interaction ?: ownOpacityInteraction,
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .peekWhileHeld(boxOpacityPeekSlider, opacityLabel, boxOpacity, opacityRange, SUBTITLE_BOX_OPACITY_STEPS)
+                    .tvArrowsLeave()
+                    .semantics { contentDescription = opacityTitle }
+                    .testTag("box_opacity_slider"),
+        )
     }
 
     Spacer(Modifier.height(14.dp))

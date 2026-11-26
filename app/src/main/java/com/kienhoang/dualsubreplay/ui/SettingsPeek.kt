@@ -70,7 +70,10 @@ internal class SettingsPeekState {
 
     /** The sliders that change how the subtitles look: holding one hides the page but that slider. */
     val fontScaleSlider = PeekSlider(this)
+    val originalFontScaleSlider = PeekSlider(this)
+    val translatedFontScaleSlider = PeekSlider(this)
     val panelPositionSlider = PeekSlider(this)
+    val boxOpacitySlider = PeekSlider(this)
 
     /** The slider being held, shown alone on [HeldSliderCard] while the page is hidden. */
     var heldSlider by mutableStateOf<HeldSlider?>(null)

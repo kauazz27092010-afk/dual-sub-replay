@@ -70,6 +70,8 @@ internal val SETTING_SPECS: Map<String, SettingSpec> =
         "recent_target_languages" to backup(S),
         // Reading, layout and captions.
         "font_scale" to share(F),
+        "original_font_scale" to share(F),
+        "translated_font_scale" to share(F),
         "portrait_panel_fit_offset_fraction" to share(F),
         "landscape_split_enabled" to share(B),
         "landscape_video_fraction" to share(F),
@@ -103,6 +105,7 @@ internal val SETTING_SPECS: Map<String, SettingSpec> =
         "subtitle_translated_color" to share(S),
         "subtitle_highlight_color" to share(S),
         "subtitle_box_background" to share(S),
+        "subtitle_box_opacity" to share(F),
         "app_color_theme" to share(S),
         "app_theme_accent" to share(S),
         // Word learning and the word card.

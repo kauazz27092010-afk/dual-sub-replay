@@ -12,6 +12,7 @@ import com.kienhoang.dualsubreplay.translation.GoogleWait
 import com.kienhoang.dualsubreplay.translation.TranslationEngine
 import com.kienhoang.dualsubreplay.translation.TranslationLanguages
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 import com.kienhoang.dualsubreplay.data.activeWordIndex as timedActiveWordIndex
 
 enum class LoadStage { IDLE, LOADING_CAPTIONS, TRANSLATING, READY, ERROR }
@@ -79,6 +80,8 @@ data class DualSubUiState(
     val currentIndex: Int = -1,
     val activeWordIndex: Int = -1,
     val fontScale: Float = 1f,
+    val originalFontScale: Float = 1f,
+    val translatedFontScale: Float = 1f,
     val portraitPanelOffsetFraction: Float = DEFAULT_PORTRAIT_PANEL_OFFSET_FRACTION,
     val landscapeSplitEnabled: Boolean = true,
     val originalColorKey: String = DEFAULT_ORIGINAL_COLOR_KEY,
@@ -327,9 +330,21 @@ internal const val TAP_TO_LEARN_PREFERENCE = "tap_to_learn_enabled"
 internal const val WORD_LEARNING_ACTIVE_ONLY_PREFERENCE = "word_learning_active_only"
 internal const val MIN_FONT_SCALE = 0.8f
 internal const val MAX_FONT_SCALE = 2f
+internal const val ORIGINAL_FONT_SCALE_PREFERENCE = "original_font_scale"
+internal const val TRANSLATED_FONT_SCALE_PREFERENCE = "translated_font_scale"
+internal const val MIN_LINE_FONT_SCALE = 0.6f
+internal const val MAX_LINE_FONT_SCALE = 2f
+internal const val LINE_FONT_SCALE_STEPS = 27
 
 /** Subtitle text size multiplier; the slider and stored value share these bounds (issue #88). */
 internal fun normalizeFontScale(scale: Float): Float = if (scale.isFinite()) scale.coerceIn(MIN_FONT_SCALE, MAX_FONT_SCALE) else 1f
+
+/** Independent per-line text size multiplier (original or translated), rounded to 5% steps. */
+internal fun normalizeLineFontScale(scale: Float): Float {
+    if (!scale.isFinite()) return 1f
+    val clamped = scale.coerceIn(MIN_LINE_FONT_SCALE, MAX_LINE_FONT_SCALE)
+    return (clamped * 20f).roundToInt() / 20f
+}
 
 /**
  * The "guide_completed" preference only exists after the first-launch guide has

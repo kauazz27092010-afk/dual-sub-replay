@@ -5,11 +5,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import com.kienhoang.dualsubreplay.R
 import com.kienhoang.dualsubreplay.data.PartOfSpeech
+import kotlin.math.roundToInt
 
 const val SUBTITLE_ORIGINAL_COLOR_PREFERENCE = "subtitle_original_color"
 const val SUBTITLE_TRANSLATED_COLOR_PREFERENCE = "subtitle_translated_color"
 const val SUBTITLE_HIGHLIGHT_COLOR_PREFERENCE = "subtitle_highlight_color"
 const val SUBTITLE_BOX_BACKGROUND_PREFERENCE = "subtitle_box_background"
+const val SUBTITLE_BOX_OPACITY_PREFERENCE = "subtitle_box_opacity"
 const val APP_THEME_ACCENT_PREFERENCE = "app_theme_accent"
 const val WORD_HIGHLIGHT_ENABLED_PREFERENCE = "highlight_spoken_words_enabled"
 const val CUSTOM_SUBTITLE_COLORS_ENABLED_PREFERENCE = "custom_subtitle_colors_enabled"
@@ -80,6 +82,10 @@ internal val DEFAULT_ORIGINAL_COLOR_KEY = SubtitleColorOption.ICE_WHITE.key
 internal val DEFAULT_TRANSLATED_COLOR_KEY = SubtitleColorOption.SKY_BLUE.key
 internal val DEFAULT_HIGHLIGHT_COLOR_KEY = SubtitleColorOption.MINT.key
 internal val DEFAULT_SUBTITLE_BOX_BACKGROUND_KEY = SubtitleBoxBackgroundOption.DEEP_TEAL.key
+internal const val MIN_SUBTITLE_BOX_OPACITY = 0f
+internal const val MAX_SUBTITLE_BOX_OPACITY = 1f
+internal const val DEFAULT_SUBTITLE_BOX_OPACITY = 0.85f
+internal const val SUBTITLE_BOX_OPACITY_STEPS = 19
 internal val DEFAULT_APP_THEME_ACCENT_KEY = AppThemeAccentOption.CYAN.key
 
 internal fun storedSubtitleColorKey(
@@ -114,11 +120,23 @@ internal fun storedSubtitleBoxBackgroundKey(raw: String?): String =
     SubtitleBoxBackgroundOption.entries.firstOrNull { it.key == raw }?.key
         ?: DEFAULT_SUBTITLE_BOX_BACKGROUND_KEY
 
-internal fun subtitleBoxBackgroundColor(key: String): Color =
-    SubtitleBoxBackgroundOption.entries
-        .firstOrNull { it.key == key }
-        ?.let { Color(it.argb) }
-        ?: Color(SubtitleBoxBackgroundOption.DEEP_TEAL.argb)
+internal fun normalizeSubtitleBoxOpacity(raw: Float): Float {
+    if (!raw.isFinite()) return DEFAULT_SUBTITLE_BOX_OPACITY
+    val clamped = raw.coerceIn(MIN_SUBTITLE_BOX_OPACITY, MAX_SUBTITLE_BOX_OPACITY)
+    return (clamped * 20f).roundToInt() / 20f
+}
+
+internal fun subtitleBoxBackgroundColor(
+    key: String,
+    opacity: Float = DEFAULT_SUBTITLE_BOX_OPACITY,
+): Color {
+    val base =
+        SubtitleBoxBackgroundOption.entries
+            .firstOrNull { it.key == key }
+            ?.let { Color(it.argb) }
+            ?: Color(SubtitleBoxBackgroundOption.DEEP_TEAL.argb)
+    return base.copy(alpha = normalizeSubtitleBoxOpacity(opacity))
+}
 
 internal fun storedAppThemeAccentKey(raw: String?): String =
     AppThemeAccentOption.entries.firstOrNull { it.key == raw }?.key
@@ -167,6 +185,8 @@ val RESETTABLE_SETTING_KEYS =
         "tap_bar_anki",
         "tap_bar_google_translate",
         "font_scale",
+        ORIGINAL_FONT_SCALE_PREFERENCE,
+        TRANSLATED_FONT_SCALE_PREFERENCE,
         PORTRAIT_PANEL_OFFSET_PREFERENCE,
         "preferred_caption_language",
         "target_language",
@@ -193,6 +213,7 @@ val RESETTABLE_SETTING_KEYS =
         SUBTITLE_TRANSLATED_COLOR_PREFERENCE,
         SUBTITLE_HIGHLIGHT_COLOR_PREFERENCE,
         SUBTITLE_BOX_BACKGROUND_PREFERENCE,
+        SUBTITLE_BOX_OPACITY_PREFERENCE,
         APP_THEME_ACCENT_PREFERENCE,
         APP_COLOR_THEME_PREFERENCE,
         WORD_HIGHLIGHT_ENABLED_PREFERENCE,
