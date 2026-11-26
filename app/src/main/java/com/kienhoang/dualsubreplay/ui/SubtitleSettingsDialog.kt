@@ -738,7 +738,7 @@ private fun QuickPopupLink(
 }
 
 @Composable
-@Suppress("LongMethod")
+@Suppress("LongMethod", "CyclomaticComplexMethod")
 internal fun SubtitleSettingsDialog(
     sourcePreference: String,
     targetLanguage: String,

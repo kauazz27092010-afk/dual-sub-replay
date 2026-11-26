@@ -41,6 +41,7 @@ import kotlin.math.roundToInt
 
 /** Overlay box, app and accent colors, shown in the "Colors & theme" settings section. */
 @Composable
+@Suppress("LongMethod", "CyclomaticComplexMethod")
 internal fun AdvancedAppearanceSettings(boxOpacityPeekSlider: PeekSlider? = null) {
     val context = LocalContext.current
     val preferences = remember(context) {
