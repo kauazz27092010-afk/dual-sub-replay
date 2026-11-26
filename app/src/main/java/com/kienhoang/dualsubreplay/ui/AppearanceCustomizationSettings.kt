@@ -119,37 +119,14 @@ internal fun AdvancedAppearanceSettings(boxOpacityPeekSlider: PeekSlider? = null
     }
 
     Spacer(Modifier.height(10.dp))
-    val ownOpacityInteraction = remember { MutableInteractionSource() }
-    val opacityPercent = (boxOpacity * 100f).roundToInt()
-    val opacityTitle = stringResource(R.string.settings_box_opacity_title)
-    val opacityLabel = stringResource(R.string.settings_box_opacity_value, opacityPercent)
-    val opacityRange = MIN_SUBTITLE_BOX_OPACITY..MAX_SUBTITLE_BOX_OPACITY
-    Column(Modifier.fillMaxWidth().settingAnchor("box_opacity")) {
-        Text(opacityLabel)
-        Text(
-            stringResource(R.string.settings_box_opacity_hint),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Slider(
-            value = boxOpacity,
-            onValueChange = { raw ->
-                val normalized = normalizeSubtitleBoxOpacity(raw)
-                boxOpacity = normalized
-                preferences.edit().putFloat(SUBTITLE_BOX_OPACITY_PREFERENCE, normalized).apply()
-            },
-            valueRange = opacityRange,
-            steps = SUBTITLE_BOX_OPACITY_STEPS,
-            interactionSource = boxOpacityPeekSlider?.interaction ?: ownOpacityInteraction,
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .peekWhileHeld(boxOpacityPeekSlider, opacityLabel, boxOpacity, opacityRange, SUBTITLE_BOX_OPACITY_STEPS)
-                    .tvArrowsLeave()
-                    .semantics { contentDescription = opacityTitle }
-                    .testTag("box_opacity_slider"),
-        )
-    }
+    SubtitleBoxOpacitySetting(
+        boxOpacity = boxOpacity,
+        boxOpacityPeekSlider = boxOpacityPeekSlider,
+        onOpacityChange = { normalized ->
+            boxOpacity = normalized
+            preferences.edit().putFloat(SUBTITLE_BOX_OPACITY_PREFERENCE, normalized).apply()
+        },
+    )
 
     Spacer(Modifier.height(14.dp))
     HorizontalDivider()
@@ -176,6 +153,47 @@ internal fun AdvancedAppearanceSettings(boxOpacityPeekSlider: PeekSlider? = null
     ) {
         accentKey = it
         save(APP_THEME_ACCENT_PREFERENCE, it)
+    }
+}
+
+/** Slider for adjusting the floating subtitle box background opacity with live peek preview. */
+@Composable
+private fun SubtitleBoxOpacitySetting(
+    boxOpacity: Float,
+    boxOpacityPeekSlider: PeekSlider?,
+    onOpacityChange: (Float) -> Unit,
+) {
+    val ownOpacityInteraction = remember { MutableInteractionSource() }
+    val opacityPercent = (boxOpacity * 100f).roundToInt()
+    val opacityTitle = stringResource(R.string.settings_box_opacity_title)
+    val opacityLabel = stringResource(R.string.settings_box_opacity_value, opacityPercent)
+    val opacityRange = MIN_SUBTITLE_BOX_OPACITY..MAX_SUBTITLE_BOX_OPACITY
+    Column(Modifier.fillMaxWidth().settingAnchor("box_opacity")) {
+        Text(opacityLabel)
+        Text(
+            stringResource(R.string.settings_box_opacity_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Slider(
+            value = boxOpacity,
+            onValueChange = { raw -> onOpacityChange(normalizeSubtitleBoxOpacity(raw)) },
+            valueRange = opacityRange,
+            steps = SUBTITLE_BOX_OPACITY_STEPS,
+            interactionSource = boxOpacityPeekSlider?.interaction ?: ownOpacityInteraction,
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .peekWhileHeld(
+                        boxOpacityPeekSlider,
+                        opacityLabel,
+                        boxOpacity,
+                        opacityRange,
+                        SUBTITLE_BOX_OPACITY_STEPS,
+                    ).tvArrowsLeave()
+                    .semantics { contentDescription = opacityTitle }
+                    .testTag("box_opacity_slider"),
+        )
     }
 }
 

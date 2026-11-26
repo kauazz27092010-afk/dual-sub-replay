@@ -738,6 +738,7 @@ private fun HideFullscreenSystemBars() {
 }
 
 @Composable
+@Suppress("LongMethod", "CyclomaticComplexMethod")
 internal fun LearningSubtitleOverlay(
     content: LearningOverlayContent,
     fontScale: Float,

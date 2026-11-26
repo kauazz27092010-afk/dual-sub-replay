@@ -57,6 +57,7 @@ import com.kienhoang.dualsubreplay.ui.theme.brandBackground
 import com.kienhoang.dualsubreplay.ui.theme.brandColors
 
 @Composable
+@Suppress("LongMethod", "CyclomaticComplexMethod")
 internal fun CompactSubtitleCard(
     segment: SubtitleSegment,
     active: Boolean,
